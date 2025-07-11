@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import "./index.css";
 import logo from "./assets/a2logo.png";
-// import video from "./assets/background-video.mp4";
 import Image1 from "./assets/1.jpg";
 import Image2 from "./assets/2.jpg";
 import Image3 from "./assets/3.jpg";
 
 import LoginPage from "./components/LoginPage";
 import Dashboard from "./components/Dashboard";
-import SketchToImages from "./components/SketchToImages"; // Import SketchToImages Component
+
+// Simulated Auth Check
+const isAuthenticated = !!localStorage.getItem("user");
 
 // FrontPage Component
 function FrontPage() {
@@ -56,7 +57,7 @@ function FrontPage() {
       <section className="relative h-screen text-center">
         <video
           className="absolute top-0 left-0 w-full h-full object-cover"
-         src="https://a2viz-assets.s3.amazonaws.com/background-video.mp4"
+          src="https://a2viz-assets.s3.amazonaws.com/background-video.mp4"
           autoPlay
           loop
           muted
@@ -72,7 +73,7 @@ function FrontPage() {
             </p>
             <button
               className="bg-white text-black px-6 py-3 rounded-full font-semibold shadow-md hover:bg-gray-100"
-              onClick={() => (window.location.href = "/dashboard")} // Redirect to Dashboard directly
+              onClick={() => (window.location.href = "/login")}
             >
               Get Started
             </button>
@@ -127,9 +128,14 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<FrontPage />} /> {/* Front Page */}
-        <Route path="/dashboard" element={<Dashboard />} /> {/* Dashboard */}
-        <Route path="/sketch-to-images" element={<SketchToImages />} /> {/* Sketch to Images Feature */}
+        <Route path="/" element={<FrontPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route
+          path="/dashboard"
+          element={
+            isAuthenticated ? <Dashboard /> : <Navigate to="/login" />
+          }
+        />
       </Routes>
     </Router>
   );
