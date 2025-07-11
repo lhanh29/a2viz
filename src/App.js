@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./index.css";
 import logo from "./assets/a2logo.png";
-import video from "./assets/background-video.mp4";
+// import video from "./assets/background-video.mp4";
 import Image1 from "./assets/1.jpg";
 import Image2 from "./assets/2.jpg";
 import Image3 from "./assets/3.jpg";
@@ -54,13 +54,13 @@ function FrontPage() {
       </header>
       {/* Hero Section */}
       <section className="relative h-screen text-center">
-        <video
+        {/*<video
           className="absolute top-0 left-0 w-full h-full object-cover"
           src={video}
           autoPlay
           loop
           muted
-        ></video>
+        ></video>*/}
         <div className="relative z-10 flex items-center justify-center h-full">
           <div className="max-w-3xl px-6">
             <h1 className="text-5xl md:text-6xl font-extrabold mb-5 leading-snug">
