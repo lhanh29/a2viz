@@ -10,7 +10,17 @@ import LoginPage from "./components/LoginPage";
 import Dashboard from "./components/Dashboard";
 
 // Simulated Auth Check
-const isAuthenticated = !!localStorage.getItem("user");
+function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("user"));
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setIsAuthenticated(!!localStorage.getItem("user"));
+    };
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, []);
+
 
 // FrontPage Component
 function FrontPage() {
