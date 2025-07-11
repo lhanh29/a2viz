@@ -1,29 +1,33 @@
-// Import the functions you need from the SDKs
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
+// firebase-config.js
 
-// ✅ Your official Firebase config from the Firebase Console
+import { initializeApp } from "firebase/app";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import { getAnalytics } from "firebase/analytics";
+
+// ✅ Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDI-O2nWCsbC26rWdC_77b4aAEETyheN-4",
-  authDomain: "a2vizai.firebaseapp.com",           // ✅ DO NOT change to your custom domain
+  authDomain: "a2vizai.firebaseapp.com",
   projectId: "a2vizai",
-  storageBucket: "a2vizai.appspot.com",            // ✅ Fixed typo from earlier
+  storageBucket: "a2vizai.appspot.com",
   messagingSenderId: "359331131985",
   appId: "1:359331131985:web:d186a74e164ed2aa0abe70",
   measurementId: "G-8959FM4K3Q"
 };
 
-// Initialize Firebase core
+// ✅ Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// Optional: initialize other Firebase services
+// ✅ Analytics (optional, can be removed if unused)
 const analytics = getAnalytics(app);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const storage = getStorage(app);
 
-// Export Firebase services for use in your app
-export { app, auth, db, storage, analytics };
+// ✅ Firebase Authentication
+const auth = getAuth(app);
+
+// ✅ Google Auth Provider setup
+const provider = new GoogleAuthProvider();
+provider.setCustomParameters({
+  prompt: "select_account"
+});
+
+export { app, auth, provider, analytics };
