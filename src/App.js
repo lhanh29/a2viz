@@ -21,21 +21,6 @@ function App() {
     return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<FrontPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route
-          path="/dashboard"
-          element={
-            isAuthenticated ? <Dashboard /> : <Navigate to="/login" />
-          }
-        />
-      </Routes>
-    </Router>
-  );
-}
 
 // FrontPage Component
 function FrontPage() {
