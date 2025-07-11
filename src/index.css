@@ -1,7 +1,7 @@
 /* Base resets */
 @font-face {
   font-family: 'SuisseIntl';
-  src: url('C:\Users\lee\Architecture_Assistant_project\client\src\assets\font/SuisseIntl-Bold-WebS.woff') format('woff');
+  src: url('./assets/font/SuisseIntl-Bold-WebS.woff') format('woff');
   font-weight: bold;
   font-style: normal;
 }
