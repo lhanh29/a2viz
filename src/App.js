@@ -54,13 +54,13 @@ function FrontPage() {
       </header>
       {/* Hero Section */}
       <section className="relative h-screen text-center">
-        {/*<video
+        <video
           className="absolute top-0 left-0 w-full h-full object-cover"
-          src={video}
+         src="https://a2viz-assets.s3.amazonaws.com/background-video.mp4"
           autoPlay
           loop
           muted
-        ></video>*/}
+        ></video>
         <div className="relative z-10 flex items-center justify-center h-full">
           <div className="max-w-3xl px-6">
             <h1 className="text-5xl md:text-6xl font-extrabold mb-5 leading-snug">
