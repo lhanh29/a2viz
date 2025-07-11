@@ -10,6 +10,7 @@ import LoginPage from "./components/LoginPage";
 import Dashboard from "./components/Dashboard";
 
 // ✅ FrontPage Component (Moved outside App)
+// FrontPage Component
 function FrontPage() {
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -32,11 +33,21 @@ function FrontPage() {
         <div className="max-w-7xl mx-auto flex items-center justify-between py-4 px-6">
           <img src={logo} alt="Logo" className="h-8" />
           <nav className="space-x-6">
-            <a href="#airendering" className="hover:text-gray-400 font-semibold">A.I RENDERING</a>
-            <a href="#aianimation" className="hover:text-gray-400 font-semibold">A.I ANIMATION</a>
-            <a href="#pricing" className="hover:text-gray-400 font-semibold">PRICING</a>
-            <a href="#aboutus" className="hover:text-gray-400 font-semibold">ABOUT US</a>
-            <a href="#contact" className="hover:text-gray-400 font-semibold">CONTACT</a>
+            <a href="#airendering" className="hover:text-gray-400 font-semibold">
+              A.I RENDERING
+            </a>
+            <a href="#aianimation" className="hover:text-gray-400 font-semibold">
+              A.I ANIMATION
+            </a>
+            <a href="#pricing" className="hover:text-gray-400 font-semibold">
+              PRICING
+            </a>
+            <a href="#aboutus" className="hover:text-gray-400 font-semibold">
+              ABOUT US
+            </a>
+            <a href="#contact" className="hover:text-gray-400 font-semibold">
+              CONTACT
+            </a>
           </nav>
         </div>
       </header>
@@ -53,7 +64,8 @@ function FrontPage() {
         <div className="relative z-10 flex items-center justify-center h-full">
           <div className="max-w-3xl px-6">
             <h1 className="text-5xl md:text-6xl font-extrabold mb-5 leading-snug">
-              Let A.I <span className="block">transform Your ideas into reality!</span>
+              Let A.I{" "}
+              <span className="block">transform Your ideas into reality!</span>
             </h1>
             <p className="text-lg mb-6">
               A powerful assistant for architects and interior designers to streamline creativity and productivity.
@@ -103,7 +115,6 @@ function FrontPage() {
           </div>
         </div>
       </section>
-
       {/* Footer */}
       <footer className="bg-black py-6 text-center text-gray-400">
         <p>&copy; 2024 A2 Visualization. All Rights Reserved.</p>
