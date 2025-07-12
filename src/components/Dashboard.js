@@ -1,10 +1,24 @@
 import React, { useState, useRef, useEffect } from "react";
+import { getAuth, onAuthStateChanged } from "firebase/auth"; // 🔥
 
 const Dashboard = () => {
+  const [user, setUser] = useState(null); // 🔥 new state for user
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState("settings"); // Active tab for the workspace settings
+  const [activeTab, setActiveTab] = useState("settings");
   const [showWorkspaceSettings, setShowWorkspaceSettings] = useState(false);
   const profileRef = useRef(null);
+
+  // Listen for Firebase user state
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
 
   // Close dropdown if clicked outside
   useEffect(() => {
@@ -75,13 +89,15 @@ const Dashboard = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <img
-                src="https://via.placeholder.com/50"
+                src={user?.photoURL || "https://via.placeholder.com/50"}
                 alt="Profile"
                 className="rounded-full w-12 h-12 border-2 border-gray-500"
               />
               <div>
-                <h2 className="text-lg font-semibold">Andy</h2>
-                <p className="text-sm text-gray-400">Free</p>
+              <h2 className="text-lg font-semibold">{user?.displayName || "Guest"}</h2>
+
+              <p className="text-sm text-gray-400">{userPlan || "Free"}</p>
+
               </div>
             </div>
             {/* Dropdown Toggle */}
@@ -221,7 +237,7 @@ const Dashboard = () => {
           }}
         >
           <h1 className="text-3xl font-bold" style={{ marginLeft: "60px" }}>
-            Welcome to the Dashboard!
+            Welcome to the A.I Architecture World!
           </h1>
           <input
             type="text"
@@ -239,11 +255,12 @@ const Dashboard = () => {
     {/* User Profile Section */}
     <div className="flex items-center space-x-4 mb-6">
       <img
-        src="https://via.placeholder.com/50"
+        src={user?.photoURL || "https://via.placeholder.com/50"}
         alt="Profile"
         className="w-16 h-16 rounded-full border-2 border-gray-500"
       />
-      <h2 className="text-2xl font-bold text-white">Andy</h2>
+      <h2 className="text-lg font-semibold">{user?.displayName || "Guest"}</h2>
+
     </div>
 
     {/* Workspace Settings Tabs */}
