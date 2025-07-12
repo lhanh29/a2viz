@@ -84,6 +84,26 @@ function LoginPage() {
   
 
   // Handle login
+  const handleEmailLogin = async (e) => {
+    e.preventDefault();
+    if (!email || !password) {
+      setErrorMessage("Email and password are required.");
+      return;
+    }
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      saveUserToLocalStorage(user); // Save to localStorage
+      setSuccessMessage("Login successful! Redirecting...");
+      setErrorMessage("");
+      setTimeout(() => navigate("/dashboard"), 2000); // Redirect after 2 seconds
+    } catch (error) {
+      setErrorMessage(error.message);
+      setSuccessMessage("");
+    }
+  };
+
+  // Handle Google login
   const handleGoogleLogin = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
@@ -101,21 +121,6 @@ function LoginPage() {
     }
   };
   
-
-  // Handle Google login
-  const handleGoogleLogin = async () => {
-    try {
-      const result = await signInWithPopup(auth, googleProvider);
-      const user = result.user;
-      await createUserProfile(user);
-      saveUserToLocalStorage(user); // Save to localStorage
-      setSuccessMessage("Google login successful! Redirecting...");
-      setTimeout(() => navigate("/dashboard"), 2000); // Redirect after 2 seconds
-    } catch (error) {
-      setErrorMessage(error.message);
-      setSuccessMessage("");
-    }
-  };
 
   return (
     <div className="flex min-h-screen flex-col md:flex-row">
