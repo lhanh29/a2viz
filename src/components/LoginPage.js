@@ -25,31 +25,38 @@ function LoginPage() {
   const [successMessage, setSuccessMessage] = useState("");
 
   // Save user profile to Firestore
-  const createUserProfile = async (user) => {
+  const createUserProfile = async (user, displayNameOverride = "") => {
     try {
       const userDocRef = doc(db, "users", user.uid);
       await setDoc(userDocRef, {
-        id: user.uid,
-        name: user.displayName || name,
+        uid: user.uid,
         email: user.email,
-      });
-      console.log("User profile created:", user);
+        displayName: user.displayName || displayNameOverride || "Anonymous",
+        photoURL: user.photoURL || "",
+        plan: "Free", // default plan
+        preferences: {},
+        createdAt: new Date()
+      }, { merge: true });
+      console.log("✅ User profile synced to Firestore:", user.email);
     } catch (error) {
-      console.error("Error creating user profile:", error);
+      console.error("❌ Firestore user profile error:", error);
     }
   };
+  
 
   // Save user to localStorage
-  const saveUserToLocalStorage = (user) => {
+  const saveUserToLocalStorage = (user, displayNameOverride = "") => {
     localStorage.setItem(
       "user",
       JSON.stringify({
         uid: user.uid,
         email: user.email,
-        name: user.displayName || name,
+        name: user.displayName || displayNameOverride || "Anonymous",
+        photoURL: user.photoURL || ""
       })
     );
   };
+  
 
   // Handle signup
   const handleSignup = async (e) => {
@@ -61,36 +68,39 @@ function LoginPage() {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      await createUserProfile(user);
-      saveUserToLocalStorage(user); // Save to localStorage
+  
+      await createUserProfile(user, name); // 🔥 use typed name
+      saveUserToLocalStorage(user, name);
+  
       setSuccessMessage("Sign-up successful! Redirecting...");
       setErrorMessage("");
-      setTimeout(() => navigate("/dashboard"), 2000); // Redirect after 2 seconds
+      setTimeout(() => navigate("/dashboard"), 1000);
     } catch (error) {
+      console.error("Signup error:", error);
       setErrorMessage(error.message);
       setSuccessMessage("");
     }
   };
+  
 
   // Handle login
-  const handleEmailLogin = async (e) => {
-    e.preventDefault();
-    if (!email || !password) {
-      setErrorMessage("Email and password are required.");
-      return;
-    }
+  const handleGoogleLogin = async () => {
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-      saveUserToLocalStorage(user); // Save to localStorage
-      setSuccessMessage("Login successful! Redirecting...");
-      setErrorMessage("");
-      setTimeout(() => navigate("/dashboard"), 2000); // Redirect after 2 seconds
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+  
+      await createUserProfile(user); // 🔥 no override needed
+      saveUserToLocalStorage(user);
+  
+      setSuccessMessage("Google login successful! Redirecting...");
+      setTimeout(() => navigate("/dashboard"), 1000);
     } catch (error) {
+      console.error("Google login error:", error);
       setErrorMessage(error.message);
       setSuccessMessage("");
     }
   };
+  
 
   // Handle Google login
   const handleGoogleLogin = async () => {
