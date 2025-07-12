@@ -17,22 +17,22 @@ const Dashboard = () => {
   // Listen for Firebase user state
   useEffect(() => {
     const auth = getAuth();
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
         setUser(currentUser);
         const db = getFirestore();
-        const docRef = doc(db, "users", user.uid);
+        const docRef = doc(db, "users", currentUser.uid);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           const data = docSnap.data();
           setUserPlan(data.plan || "Free");
           setPreferences(data.preferences || {});
         }
-
       }
     });
     return () => unsubscribe();
   }, []);
+  
 
 
   // Close dropdown if clicked outside
