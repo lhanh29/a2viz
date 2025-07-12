@@ -1,6 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth"; // 🔥
 
+import { getFirestore, doc, getDoc } from "firebase/firestore";
+
+const [userPlan, setUserPlan] = useState("Free");
+const [preferences, setPreferences] = useState({});
+
+
 const Dashboard = () => {
   const [user, setUser] = useState(null); // 🔥 new state for user
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -14,6 +20,15 @@ const Dashboard = () => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         setUser(currentUser);
+        const db = getFirestore();
+        const docRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          setUserPlan(data.plan || "Free");
+          setPreferences(data.preferences || {});
+        }
+
       }
     });
     return () => unsubscribe();
@@ -96,7 +111,8 @@ const Dashboard = () => {
               <div>
               <h2 className="text-lg font-semibold">{user?.displayName || "Guest"}</h2>
 
-              <p className="text-sm text-gray-400">{user?.email ? "Free" : "Guest"}</p>
+              <p className="text-sm text-gray-400">{userPlan}</p>
+
 
 
               </div>
