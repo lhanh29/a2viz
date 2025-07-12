@@ -96,7 +96,8 @@ const Dashboard = () => {
               <div>
               <h2 className="text-lg font-semibold">{user?.displayName || "Guest"}</h2>
 
-              <p className="text-sm text-gray-400">{userPlan || "Free"}</p>
+              <p className="text-sm text-gray-400">{user?.email ? "Free" : "Guest"}</p>
+
 
               </div>
             </div>
