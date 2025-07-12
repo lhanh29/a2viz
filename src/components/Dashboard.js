@@ -3,12 +3,12 @@ import { getAuth, onAuthStateChanged } from "firebase/auth"; // 🔥
 
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 
-const [userPlan, setUserPlan] = useState("Free");
-const [preferences, setPreferences] = useState({});
 
 
 const Dashboard = () => {
   const [user, setUser] = useState(null); // 🔥 new state for user
+  const [userPlan, setUserPlan] = useState("Free");        // ✅ moved inside
+  const [preferences, setPreferences] = useState({});      // ✅ moved inside
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("settings");
   const [showWorkspaceSettings, setShowWorkspaceSettings] = useState(false);
