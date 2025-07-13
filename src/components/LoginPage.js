@@ -121,22 +121,26 @@ function LoginPage() {
     }
   };
   
-
   return (
-    <div className="flex min-h-screen flex-col md:flex-row">
-      {/* Left Section */}
-      <div
-        className="md:w-1/2 w-full bg-cover bg-center"
-        style={{ backgroundImage: "url('path_to_your_image.jpg')" }}
-      >
-        <div className="flex flex-col items-center justify-center h-full text-white bg-black bg-opacity-50 p-10">
-          <h1 className="text-4xl font-bold mb-4">Everything you design,</h1>
-          <h2 className="text-4xl font-bold mb-4">We make anything you want.</h2>
-          <p className="text-lg">
-            Dozens of creative tools to create and generate like never before.
-          </p>
-        </div>
-      </div>
+    <div className="flex min-h-screen">
+  {/* Left Section (with background image) */}
+  <div
+    className="hidden md:flex md:w-1/2 bg-cover bg-center"
+    style={{
+      backgroundImage: "url('https://a2viz-assets.s3.us-east-2.amazonaws.com/4.jpg')",
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+    }}
+  >
+    <div className="flex flex-col items-center justify-center w-full h-full text-white bg-black bg-opacity-50 p-10">
+      <h1 className="text-4xl font-bold mb-4">Everything you design,</h1>
+      <h2 className="text-4xl font-bold mb-4">We make anything you want.</h2>
+      <p className="text-lg text-center">
+        Dozens of creative tools to create and generate like never before.
+      </p>
+    </div>
+  </div>
 
       {/* Right Section */}
       <div className="md:w-1/2 w-full flex flex-col justify-center items-center bg-white p-6">

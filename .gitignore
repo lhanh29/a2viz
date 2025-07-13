@@ -23,3 +23,4 @@ yarn-debug.log*
 yarn-error.log*
 src/assets/background-video.mp4 
 src/assets/background-video.mp4 
+.vercel

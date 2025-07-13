@@ -34,7 +34,6 @@ const Dashboard = () => {
   }, []);
   
 
-
   // Close dropdown if clicked outside
   useEffect(() => {
     const handleClickOutside = (event) => {
