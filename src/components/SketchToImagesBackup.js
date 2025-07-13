@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react"; // make sure useRef and useEffect are imported
 import axios from "axios";
 
 const SketchToImages = () => {
@@ -6,6 +6,34 @@ const SketchToImages = () => {
   const [uploadedImage, setUploadedImage] = useState(null); // Store uploaded image
   const [prompt, setPrompt] = useState(""); // Store prompt input
   const [loading, setLoading] = useState(false); // Loading state
+
+ // 🔥 Add ref for scroll into view
+ const toolRef = useRef(null);
+
+ useEffect(() => {
+  // Wait until DOM is painted
+  const timer = setTimeout(() => {
+    if (toolRef.current) {
+      toolRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "center",
+      });
+
+      // Optional visual highlight effect:
+      toolRef.current.classList.add("ring", "ring-blue-500", "ring-offset-2");
+
+      // Remove highlight after a few seconds
+      setTimeout(() => {
+        toolRef.current.classList.remove("ring", "ring-blue-500", "ring-offset-2");
+      }, 2000);
+    }
+  }, 500); // delay to ensure full page loads before scroll
+
+  return () => clearTimeout(timer);
+}, []);
+
+
 
   // Handle file upload
   const handleFileUpload = (e) => {
@@ -19,47 +47,76 @@ const SketchToImages = () => {
     }
   };
 
+
   // Handle Generate button click
   const handleGenerate = async () => {
     if (!uploadedImage || !prompt) {
       alert("Please upload an image and provide a prompt before generating.");
       return;
     }
-
+  
     setLoading(true); // Set loading state
     try {
-      const apiKey = process.env.REACT_APP_STABLE_API_KEY; // Load API key from .env
+      const apiKey = process.env.REACT_APP_STABLE_API_KEY;
+  
+      // Remove the Base64 prefix
+      const base64Data = uploadedImage.split(",")[1];
+  
+      // Make API request to Stability AI endpoint
       const response = await axios.post(
-        "https://api.stability.ai/v2beta/stable-image/generate",
+        "https://api.stability.ai/v2beta/stable-image/generate/sd3", // Updated endpoint
         {
-          prompt, // Pass user input prompt
-          init_image: uploadedImage, // Pass uploaded image (Base64)
-          style_preset: "photographic", // Stable Diffusion style
-          cfg_scale: 7, // Guidance scale
-          steps: 30, // Number of inference steps
+          prompt,                   // User prompt input
+          init_image: base64Data,   // Base64 content without prefix
+          output_format: "webp",    // Required output format
+          style_preset: "photographic", // Preset style
+          cfg_scale: 7,             // Guidance scale (1-20)
+          steps: 30,                // Steps for image generation
         },
         {
           headers: {
             Authorization: `Bearer ${apiKey}`,
             "Content-Type": "application/json",
+            Accept: "image/*",      // Ensure proper response format
           },
+          responseType: "blob",     // Important for image response
         }
       );
-
-      // Assuming the API returns a URL for the generated image
-      const generatedImageUrl = response.data.image_url;
-
-      setGeneratedResults([generatedImageUrl]); // Set the generated image result
+  
+      // Convert the Blob response to a URL and display it
+      const imageBlob = new Blob([response.data], { type: "image/webp" });
+      const imageUrl = URL.createObjectURL(imageBlob);
+        setGeneratedResults([imageUrl]); // Set the image URL
     } catch (error) {
-      console.error("Error generating image:", error);
-      alert("Failed to generate image. Please try again later.");
+      console.error("Error generating image:", error.response?.data || error.message);
+      alert("Failed to generate image. Please check your API key and input.");
     } finally {
-      setLoading(false); // Reset loading state
+      setLoading(false);
     }
   };
+  
+  
+  // Helper to convert Base64 to File
+  const dataURLtoFile = (dataURL, filename) => {
+    const arr = dataURL.split(",");
+    const mime = arr[0].match(/:(.*?);/)[1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], filename, { type: mime });
+  };
+  
 
   return (
-    <div className="flex flex-col h-screen bg-black text-white">
+    <div
+  className="flex flex-col h-screen bg-black text-white"
+  ref={toolRef}
+  id="sketch-to-images-section"
+    >
+
       {/* Header */}
       <div
         className="flex items-center justify-between px-4 py-3 border-b border-gray-700"
@@ -123,8 +180,7 @@ const SketchToImages = () => {
             <div className="mb-4">
               <label className="block text-sm mb-2">Style</label>
               <select className="w-full bg-gray-800 text-white p-2 rounded">
-                <option>None</option>
-                <option>Realistic</option>
+               <option>Realistic</option>
                 <option>Artistic</option>
               </select>
             </div>
@@ -192,23 +248,23 @@ const SketchToImages = () => {
         </div>
 
         {/* Center Panel */}
-        <div className="flex-1 flex flex-col items-center justify-center bg-gray-900 p-4 rounded-lg">
-          {generatedResults.length === 0 ? (
-            <p className="text-gray-400">Center Panel Placeholder</p>
-          ) : (
-            <div className="w-full max-w-4xl">
-              <h3 className="text-lg font-semibold mb-4 text-blue-400">Generated Results:</h3>
-              {generatedResults.map((result, index) => (
-                <img
-                  key={index}
-                  src={result}
-                  alt={`Generated Result ${index + 1}`}
-                  className="mb-4 rounded-lg shadow-lg"
-                />
-              ))}
-            </div>
-          )}
-        </div>
+        
+        {/* Center Panel Results */}
+<div className="flex-1 flex flex-col items-center justify-center bg-gray-900 p-4 rounded-lg">
+  {generatedResults.length === 0 ? (
+    <p className="text-gray-400">Center Panel Placeholder</p>
+  ) : (
+    <div className="w-full max-w-4xl">
+      <h3 className="text-lg font-semibold mb-4 text-blue-400">Generated Image:</h3>
+      <img
+        src={generatedResults[0]} // Actual image URL
+        alt="Generated Result"
+        className="w-full rounded-lg"
+      />
+    </div>
+  )}
+</div>
+
       </div>
     </div>
   );

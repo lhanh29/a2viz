@@ -1,12 +1,16 @@
-import axios from "axios";
 import React, { useState, useEffect, useRef } from "react"; // make sure useRef and useEffect are imported
-
+import axios from "axios";
 
 const SketchToImages = () => {
   const [generatedResults, setGeneratedResults] = useState([]); // Store results
   const [uploadedImage, setUploadedImage] = useState(null); // Store uploaded image
   const [prompt, setPrompt] = useState(""); // Store prompt input
   const [loading, setLoading] = useState(false); // Loading state
+  const [ratio, setRatio] = useState("Widescreen (16:9)");
+  const [resolution, setResolution] = useState("1344 x 768");
+  const [style, setStyle] = useState("Realistic");
+
+
 
  // 🔥 Add ref for scroll into view
  const toolRef = useRef(null);
@@ -33,6 +37,7 @@ const SketchToImages = () => {
 
   return () => clearTimeout(timer);
 }, []);
+
 
 
   // Handle file upload
@@ -62,6 +67,13 @@ const SketchToImages = () => {
       // Remove the Base64 prefix
       const base64Data = uploadedImage.split(",")[1];
   
+
+      // Define style map before the axios call
+              const styleMap = {
+               "Realistic": "photographic",
+                "Artistic": "enhance",
+              };
+
       // Make API request to Stability AI endpoint
       const response = await axios.post(
         "https://api.stability.ai/v2beta/stable-image/generate/sd3", // Updated endpoint
@@ -69,7 +81,7 @@ const SketchToImages = () => {
           prompt,                   // User prompt input
           init_image: base64Data,   // Base64 content without prefix
           output_format: "webp",    // Required output format
-          style_preset: "photographic", // Preset style
+          style_preset: styleMap[style], // ✅ Mapped dynamically
           cfg_scale: 7,             // Guidance scale (1-20)
           steps: 30,                // Steps for image generation
         },
@@ -162,28 +174,45 @@ const SketchToImages = () => {
 
             <div className="mb-4">
               <label className="block text-sm mb-2">Ratio</label>
-              <select className="w-full bg-gray-800 text-white p-2 rounded">
-                <option>Widescreen (16:9)</option>
-                <option>Square (1:1)</option>
-                <option>Portrait (9:16)</option>
-              </select>
+              <select
+                 value={ratio}
+                 onChange={(e) => setRatio(e.target.value)}
+                  className="w-full bg-gray-800 text-white p-2 rounded"
+                 >
+                         <option>Widescreen (16:9)</option>
+                         <option>Square (1:1)</option>
+                         <option>Portrait (9:16)</option>
+             </select>
+
             </div>
 
             <div className="mb-4">
               <label className="block text-sm mb-2">Resolution</label>
-              <select className="w-full bg-gray-800 text-white p-2 rounded">
-                <option>1344 x 768</option>
-                <option>1920 x 1080</option>
-                <option>3840 x 2160</option>
-              </select>
+              <select
+                 value={resolution}
+                    onChange={(e) => setResolution(e.target.value)}
+                       className="w-full bg-gray-800 text-white p-2 rounded"
+               >
+                    <option>1344 x 768</option>
+                    <option>1920 x 1080</option>
+                   <option>3840 x 2160</option>
+             </select>
+
             </div>
             <div className="mb-4">
               <label className="block text-sm mb-2">Style</label>
-              <select className="w-full bg-gray-800 text-white p-2 rounded">
-               <option>Realistic</option>
-                <option>Artistic</option>
+              <select
+                   value={style}
+                         onChange={(e) => setStyle(e.target.value)}
+                     className="w-full bg-gray-800 text-white p-2 rounded"
+              >
+                      <option>Realistic</option>
+                      <option>Artistic</option>
               </select>
+
             </div>
+
+
             {/* Upload Section */}
             <div className="flex-1 flex flex-col items-center justify-center border-dashed border-2 border-gray-700 mb-4 p-4 rounded-lg">
               {uploadedImage ? (
@@ -249,6 +278,7 @@ const SketchToImages = () => {
 
         {/* Center Panel */}
         
+
         {/* Center Panel Results */}
 <div className="flex-1 flex flex-col items-center justify-center bg-gray-900 p-4 rounded-lg">
   {generatedResults.length === 0 ? (
