@@ -121,7 +121,6 @@ function LoginPage() {
     }
   };
   
-
   return (
     <div className="flex min-h-screen flex-col md:flex-row">
       {/* Left Section */}
@@ -134,8 +133,6 @@ function LoginPage() {
     backgroundPosition: "center",
   }}
 >
-
-
         <div className="flex flex-col items-center justify-center h-full text-white bg-black bg-opacity-50 p-10">
           <h1 className="text-4xl font-bold mb-4">Everything you design,</h1>
           <h2 className="text-4xl font-bold mb-4">We make anything you want.</h2>

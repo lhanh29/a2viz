@@ -8,6 +8,8 @@ import Image3 from "./assets/3.jpg";
 
 import LoginPage from "./components/LoginPage";
 import Dashboard from "./components/Dashboard";
+import SketchToImages from "./components/SketchToImages";
+
 
 // ✅ FrontPage Component (Moved outside App)
 // FrontPage Component
@@ -123,9 +125,12 @@ function FrontPage() {
   );
 }
 
+
 // ✅ App Component with Routing
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("user"));
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    !!localStorage.getItem("user")
+  );
 
   useEffect(() => {
     const handleStorageChange = () => {
@@ -140,8 +145,10 @@ function App() {
       <Routes>
         <Route path="/" element={<FrontPage />} />
         <Route path="/login" element={<LoginPage />} />
+
+        {/* ✅ Use wildcard to support nested routing inside Dashboard */}
         <Route
-          path="/dashboard"
+          path="/dashboard/*"
           element={
             isAuthenticated ? <Dashboard /> : <Navigate to="/login" />
           }

@@ -3,6 +3,9 @@ import { getAuth, onAuthStateChanged } from "firebase/auth"; // 🔥
 
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 
+import { Routes, Route } from "react-router-dom";
+import SketchToImages from "./SketchToImages"; // ✅ Import your component
+import { NavLink } from "react-router-dom";
 
 
 const Dashboard = () => {
@@ -202,12 +205,19 @@ const Dashboard = () => {
             >
               Text to Image
             </a>
-            <a
-              href="#generative-session"
-              className="block hover:text-gray-300 rounded-lg p-2 hover:bg-gray-700 cursor-pointer"
-            >
-              Sketch to Images
-            </a>
+
+            <NavLink
+                 to="/dashboard/sketch-to-images"
+                  className={({ isActive }) =>
+                   isActive
+                       ? "text-blue-500 font-bold block hover:text-blue-400"
+                       : "text-gray-300 block hover:text-gray-400"
+                   }
+                    >
+                     Sketch to Images
+            </NavLink>
+
+
             <a
               href="#video-gen1"
               className="block hover:text-gray-300 rounded-lg p-2 hover:bg-gray-700 cursor-pointer"
@@ -348,7 +358,6 @@ const Dashboard = () => {
               </a>
             </section>
 
-           
             
 {/* Start a Generative Session Section */}
   <section className="p-2">
@@ -408,7 +417,11 @@ const Dashboard = () => {
     ))}
   </div>
 </section>
-
+ {/* 👇 Insert route here */}
+ <Routes>
+    <Route path="sketch-to-images" element={<SketchToImages />} />
+    {/* You can add more routes below */}
+  </Routes>
 
 {/* Tools Section */}
 <section className="p-2 mt-8">
