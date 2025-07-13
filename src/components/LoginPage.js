@@ -125,9 +125,10 @@ function LoginPage() {
     <div className="flex min-h-screen">
   {/* Left Section (with background image) */}
   <div
-    className="hidden md:flex md:w-1/2 bg-cover bg-center"
+    className="flex md:w-1/2 w-full bg-cover bg-center"
+
     style={{
-      backgroundImage: "url('https://a2viz-assets.s3.us-east-2.amazonaws.com/4.jpg')",
+      backgroundImage: `url(https://a2viz-assets.s3.us-east-2.amazonaws.com/4.jpg)`,
       backgroundRepeat: "no-repeat",
       backgroundSize: "cover",
       backgroundPosition: "center",
