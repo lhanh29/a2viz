@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import React, { useState, useEffect, useRef } from "react"; // make sure useRef and useEffect are imported
+
 
 const SketchToImages = () => {
   const [generatedResults, setGeneratedResults] = useState([]); // Store results
@@ -11,10 +13,28 @@ const SketchToImages = () => {
  const toolRef = useRef(null);
 
  useEffect(() => {
-   if (toolRef.current) {
-     toolRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
-   }
- }, []);
+  // Wait until DOM is painted
+  const timer = setTimeout(() => {
+    if (toolRef.current) {
+      toolRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "center",
+      });
+
+      // Optional visual highlight effect:
+      toolRef.current.classList.add("ring", "ring-blue-500", "ring-offset-2");
+
+      // Remove highlight after a few seconds
+      setTimeout(() => {
+        toolRef.current.classList.remove("ring", "ring-blue-500", "ring-offset-2");
+      }, 2000);
+    }
+  }, 500); // delay to ensure full page loads before scroll
+
+  return () => clearTimeout(timer);
+}, []);
+
 
   // Handle file upload
   const handleFileUpload = (e) => {
