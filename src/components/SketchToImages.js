@@ -7,6 +7,15 @@ const SketchToImages = () => {
   const [prompt, setPrompt] = useState(""); // Store prompt input
   const [loading, setLoading] = useState(false); // Loading state
 
+ // 🔥 Add ref for scroll into view
+ const toolRef = useRef(null);
+
+ useEffect(() => {
+   if (toolRef.current) {
+     toolRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+   }
+ }, []);
+
   // Handle file upload
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
@@ -58,8 +67,7 @@ const SketchToImages = () => {
       // Convert the Blob response to a URL and display it
       const imageBlob = new Blob([response.data], { type: "image/webp" });
       const imageUrl = URL.createObjectURL(imageBlob);
-  
-      setGeneratedResults([imageUrl]); // Set the image URL
+        setGeneratedResults([imageUrl]); // Set the image URL
     } catch (error) {
       console.error("Error generating image:", error.response?.data || error.message);
       alert("Failed to generate image. Please check your API key and input.");
@@ -84,7 +92,12 @@ const SketchToImages = () => {
   
 
   return (
-    <div className="flex flex-col h-screen bg-black text-white">
+    <div
+  className="flex flex-col h-screen bg-black text-white"
+  ref={toolRef}
+  id="sketch-to-images-section"
+    >
+
       {/* Header */}
       <div
         className="flex items-center justify-between px-4 py-3 border-b border-gray-700"

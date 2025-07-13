@@ -208,14 +208,17 @@ const Dashboard = () => {
 
             <NavLink
                  to="/dashboard/sketch-to-images"
-                  className={({ isActive }) =>
+                 className={({ isActive }) =>
+                    `block rounded-lg p-2 cursor-pointer hover:text-gray-300 hover:bg-gray-700 ${
                    isActive
-                       ? "text-blue-500 font-bold block hover:text-blue-400"
-                       : "text-gray-300 block hover:text-gray-400"
-                   }
-                    >
-                     Sketch to Images
-            </NavLink>
+                      ? "text-blue-500 font-bold block hover:text-blue-400"
+                     : "text-gray-300 block hover:text-gray-400"
+                 }`
+               }
+             >
+              Sketch to Images
+           </NavLink>
+
 
 
             <a
