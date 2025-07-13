@@ -126,6 +126,7 @@ function FrontPage() {
       <footer className="bg-black py-6 text-center text-gray-400">
         <p>&copy; 2024 A2 Visualization. All Rights Reserved.</p>
       </footer>
+      <Analytics /> {/* 👈 Add it right here */}
     </div>
   );
 }
