@@ -420,6 +420,7 @@ const Dashboard = () => {
     ))}
   </div>
 </section>
+
  {/* 👇 Insert route here */}
  <Routes>
     <Route path="sketch-to-images" element={<SketchToImages />} />
