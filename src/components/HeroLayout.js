@@ -1,4 +1,5 @@
 // src/components/HeroLayout.js
+import '../index.css'; // ✅ Fixed path
 import React from "react";
 import logo from "../assets/a2logo.png";
 
