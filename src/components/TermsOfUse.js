@@ -1,6 +1,6 @@
 // src/components/TermsOfUse.js
 
-import './index.css';
+import '../index.css';
 import React from "react";
 import HeroLayout from "./HeroLayout";
 
