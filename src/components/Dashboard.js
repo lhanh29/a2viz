@@ -8,6 +8,9 @@ import SketchToImages from "./SketchToImages"; // ✅ Import your component
 import { NavLink } from "react-router-dom";
 
 
+import TermsOfUse from './components/TermsOfUse';
+import PrivacyPolicy from './components/PrivacyPolicy';
+
 const Dashboard = () => {
   const [user, setUser] = useState(null); // 🔥 new state for user
   const [userPlan, setUserPlan] = useState("Free");        // ✅ moved inside
@@ -238,14 +241,34 @@ const Dashboard = () => {
         </nav>
 
         {/* Footer */}
-        <footer className="mt-auto text-gray-500">
-          <a href="#help-center" className="block text-sm hover:text-gray-300">
-            Help Center
-          </a>
-          <a href="#terms" className="block text-sm hover:text-gray-300">
-            Terms of Use and Privacy Policy
-          </a>
-        </footer>
+        <footer className="mt-10 text-center text-xs text-gray-400">
+  <ul className="space-y-1">
+    <li>
+      <a
+        href="/help"
+        className="hover:text-white hover:underline transition duration-200"
+      >
+        Help Center
+      </a>
+    </li>
+    <li>
+      <a
+        href="/terms-of-use"
+        className="hover:text-white hover:underline transition duration-200"
+      >
+        Terms of Use
+      </a>{" "}
+      &nbsp;|&nbsp;
+      <a
+        href="/privacy-policy"
+        className="hover:text-white hover:underline transition duration-200"
+      >
+        Privacy Policy
+      </a>
+    </li>
+  </ul>
+</footer>
+
       </aside>
 
 
