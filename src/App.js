@@ -127,10 +127,10 @@ function FrontPage() {
       {/* Footer */}
       <footer className="bg-black py-6 text-center text-gray-400 text-sm">
          <p>
-          &copy; 2024 A2 Visualization. 
+          &copy; 2024 A2 Visualization | 
          {' '}
-         <a href="/terms-of-use" className="underline hover:text-white">TERMS OF USE</a> / 
-         <a href="/privacy-policy" className="underline hover:text-white"> PRIVACY POLICY</a> /
+         <a href="/terms-of-use" className=" hover:text-white">TERMS OF USE</a> | 
+         <a href="/privacy-policy" className=" hover:text-white"> PRIVACY POLICY</a> |
          </p>
     </footer>
 
