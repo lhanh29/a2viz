@@ -241,22 +241,22 @@ const Dashboard = () => {
           </div>
         </nav>
 
-    {/* Footer */}
-   
-       <footer className="mt-auto text-gray-500">
-         
-          <a href="#help-center" className="block text-sm hover:text-gray-300">
-            Help Center
-          </a>
-       <p> 
-          <a href="/terms-of-use" className="block text-sm hover:text-gray-300">
-            Terms of Use 
-          </a> |
-           <a href="/privacy-policy" className="block text-sm hover:text-gray-300">
-          Privacy Policy
-          </a> |
-       </p>
-     </footer>
+   {/* Footer */}
+<footer className="mt-auto text-gray-500">
+  <a href="#help-center" className="block text-sm hover:text-gray-300">
+    Help Center
+  </a>
+  <a className="block text-sm">
+    <a href="/terms-of-use" className="hover:text-gray-300">
+      Terms of Use
+    </a>
+    {" "}|
+    <a href="/privacy-policy" className="hover:text-gray-300 ml-1">
+      Privacy Policy
+    </a>
+  </a>
+</footer>
+
 
       </aside>
 
