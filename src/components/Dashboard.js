@@ -8,8 +8,9 @@ import SketchToImages from "./SketchToImages"; // ✅ Import your component
 import { NavLink } from "react-router-dom";
 
 
-import TermsOfUse from './components/TermsOfUse';
-import PrivacyPolicy from './components/PrivacyPolicy';
+import TermsOfUse from './TermsOfUse';
+import PrivacyPolicy from './PrivacyPolicy';
+
 
 const Dashboard = () => {
   const [user, setUser] = useState(null); // 🔥 new state for user
