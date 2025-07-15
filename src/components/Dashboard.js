@@ -249,11 +249,10 @@ const Dashboard = () => {
           </a>
           <a href="/terms-of-use" className="block text-sm hover:text-gray-300">
             Terms of Use 
-          </a>
-          <span className="text-gray-400">|</span>
-          <a href="/privacy-policy" className="block text-sm hover:text-gray-300">
+          </a> |
+           <a href="/privacy-policy" className="block text-sm hover:text-gray-300">
           Privacy Policy
-          </a>
+          </a> |
         </footer>
 
       </aside>
