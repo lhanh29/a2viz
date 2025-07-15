@@ -241,34 +241,23 @@ const Dashboard = () => {
           </div>
         </nav>
 
-        {/* Footer */}
-        <footer className="mt-10 text-center text-xs text-gray-400">
-  <ul className="space-y-1">
-    <li>
-      <a
-        href="/help"
-        className="hover:text-white hover:underline transition duration-200"
-      >
-        Help Center
-      </a>
-    </li>
-    <li>
-      <a
-        href="/terms-of-use"
-        className="hover:text-white hover:underline transition duration-200"
-      >
-        Terms of Use
-      </a>{" "}
-      &nbsp;|&nbsp;
-      <a
-        href="/privacy-policy"
-        className="hover:text-white hover:underline transition duration-200"
-      >
-        Privacy Policy
-      </a>
-    </li>
-  </ul>
+    {/* Footer */}
+<footer
+  className="text-gray-500 text-sm text-center mt-auto py-4"
+  style={{ position: 'absolute', bottom: 0, width: '100%' }}
+>
+  <a href="#help-center" className="hover:text-gray-300 mr-4">
+    Help Center
+  </a>
+  <a href="/terms-of-use" className="hover:text-gray-300 mr-2">
+    Terms of Use
+  </a>
+  <span className="text-gray-400">|</span>
+  <a href="/privacy-policy" className="hover:text-gray-300 ml-2">
+    Privacy Policy
+  </a>
 </footer>
+
 
       </aside>
 
