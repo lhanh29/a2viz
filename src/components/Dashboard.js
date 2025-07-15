@@ -243,17 +243,20 @@ const Dashboard = () => {
 
     {/* Footer */}
    
-          <footer className="mt-auto text-gray-500">
+       <footer className="mt-auto text-gray-500">
+         
           <a href="#help-center" className="block text-sm hover:text-gray-300">
             Help Center
           </a>
+       <p> 
           <a href="/terms-of-use" className="block text-sm hover:text-gray-300">
             Terms of Use 
           </a> |
            <a href="/privacy-policy" className="block text-sm hover:text-gray-300">
           Privacy Policy
           </a> |
-        </footer>
+       </p>
+     </footer>
 
       </aside>
 
