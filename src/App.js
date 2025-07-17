@@ -94,7 +94,7 @@ function FrontPage() {
       <section className="py-16 bg-black text-white">
         <div className="max-w-7xl mx-auto px-6">
           <h2 className="text-5xl font-bold text-center mb-12">
-            How the world's top creatives <br /> are using A2 AI creativity.
+            How the world's top creatives <br /> are using A2 Visualization's  AI creativity.
           </h2>
           <button className="bg-transparent border border-white text-white px-6 py-3 rounded-full font-medium hover:bg-white hover:text-black transition-all mb-8 mx-auto block">
             More Customer Stories
@@ -127,7 +127,7 @@ function FrontPage() {
       {/* Footer */}
       <footer className="bg-black py-6 text-center text-gray-400 text-sm">
          <p>
-          &copy; 2024 A2 Visualization | 
+          &copy; 2024 a2viz | 
          {' '}
          <a href="/terms-of-use" className=" hover:text-white">TERMS OF USE</a> | 
          <a href="/privacy-policy" className=" hover:text-white"> PRIVACY POLICY</a> |
